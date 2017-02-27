@@ -12,7 +12,7 @@ import slabcalc as sc
 # Set Values
 
 rho = 3 # g/cm^3               set value of rock density
-Cp = 0.25 # cal/(g °C)         set value of heat capacity
+Cp = 0.35 # cal/(g °C)         set value of heat capacity
 vx = 10 # cm/yr                set value of slab velocity
 l = 50 # km                    set value of slab thickness
 kappa = 0.01 # cal/(cm °C s)   set value of thermal conductivity
