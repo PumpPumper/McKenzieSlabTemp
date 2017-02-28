@@ -16,19 +16,21 @@ def slabmodel(xmax,l,rho,Cp,vx,kappa,dip):
     output = np.zeros((xmax,xmax))
     for distance in range(xmax):
         for depth in range(xmax):
-            slope = -1*np.tan(dip)
+            diprads = (90-dip)*np.pi/180
+            slope = np.tan(diprads)  # calculations for slab geometry
             SlabDep = distance*slope
-            innerterm = (distance+slope*depth)/((slope**2)+1)
-            term1 = (innerterm-distance)**2
-            term2 = (slope*innerterm-depth)**2
-            ztest = np.sqrt([term1+term2])
+            innerterm = (distance+slope*depth)/((slope**2)+1)            
+            term1 = (innerterm-distance)**2  # terms in eq for calculating distance between a point and a line
+            term2 = (slope*innerterm-depth)**2            
+            ztest = np.sqrt([term1+term2])  # the shortest distance between the point and the slab            
             if depth >= SlabDep and ztest <= l:
-                output[distance,depth] = st.slabtemp(distance,depth,xmax,rho,Cp,vx,l,kappa,dip,ztest)
+                output[distance,depth] = st.slabtemp(distance,depth,xmax,rho,Cp,vx,l,kappa,diprads,ztest)
             else:
                 output[distance,depth] = 1
+    v = [.2,.4,.6,.8]
     plt.close('all')
     plt.figure(1)
-    CS = plt.contour(output)
+    CS = plt.contour(output,v)
     plt.ylim((xmax,0))
     plt.clabel(CS, inline=1, fontsize=10)
     plt.title('Slab Thermal Structure')
