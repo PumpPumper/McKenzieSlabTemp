@@ -14,25 +14,23 @@ import matplotlib.pyplot as plt
 
 def slabmodel(xmax,l,rho,Cp,vx,kappa,dip):
     output = np.zeros((xmax,xmax))
+    diprads = (90-dip)*np.pi/180 # convert slab dip degrees to radians
+    slope = np.tan(diprads)  # slope of slab
     for distance in range(xmax):
         for depth in range(xmax):
-            diprads = (90-dip)*np.pi/180
-            slope = np.tan(diprads)  # calculations for slab geometry
-            SlabDep = distance*slope
+            SlabDep = distance*slope # depth to top of slab
             innerterm = (distance+slope*depth)/((slope**2)+1)            
             term1 = (innerterm-distance)**2  # terms in eq for calculating distance between a point and a line
             term2 = (slope*innerterm-depth)**2            
             ztest = np.sqrt([term1+term2])  # the shortest distance between the point and the slab            
-            if depth >= SlabDep and ztest <= l:
-                output[distance,depth] = st.slabtemp(distance,depth,xmax,rho,Cp,vx,l,kappa,diprads,ztest)
+            if depth <= SlabDep and ztest <= l:
+                output[distance,depth] = st.slabtemp(distance,xmax,rho,Cp,vx,l,kappa,diprads,ztest)
             else:
                 output[distance,depth] = 1
-    v = [.2,.4,.6,.8]
     plt.close('all')
     plt.figure(1)
-    CS = plt.contour(output,v)
+    plt.contourf(output)
     plt.ylim((xmax,0))
-    plt.clabel(CS, inline=1, fontsize=10)
     plt.title('Slab Thermal Structure')
     plt.ylabel('Depth (km)')
     plt.xlabel('Distance(km)')

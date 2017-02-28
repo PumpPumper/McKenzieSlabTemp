@@ -17,6 +17,6 @@ vx = 10 # cm/yr                set value of slab velocity
 l = 50 # km                    set value of slab thickness
 kappa = 0.01 # cal/(cm °C s)   set value of thermal conductivity
 xmax = 1000 # km               set maximum slab length (arbitrary)
-dip = 30 # °                   set slab dip angle
+dip = 20 # °                   set slab dip angle
 
 sc.slabmodel(xmax,l,rho,Cp,vx,kappa,dip)

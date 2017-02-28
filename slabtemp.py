@@ -10,7 +10,7 @@ In the future I may add functions to calculate other slab attributes.
 """
 import numpy as np
 
-def slabtemp(x,z,xm,rho,Cp,vx,l,kappa,dip,ztest):
+def slabtemp(x,xm,rho,Cp,vx,l,kappa,dip,ztest):
     v1 = vx / 31536000 #           convert cm/yr to cm/sec
     l1 = l * 100000 #              convert km to cm
     xp = (x/np.cos(dip))/xm #      nondimensionalize x
