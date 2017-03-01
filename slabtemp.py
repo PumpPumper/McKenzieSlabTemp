@@ -18,3 +18,12 @@ def slabtemp(x,xm,rho,Cp,vx,l,kappa,dip,ztest):
     R = (rho*Cp*v1*l1)/(2*kappa) #  calculate Reynolds number
     Tprime = 1-(2/np.pi)*np.exp(-1*((np.pi**2)*xp)/(2*R))*np.sin(np.pi*zp)
     return Tprime
+
+def lithospheretemp(x,xm,rho,Cp,vx,l,kappa,z):
+    v1 = vx / 31536000
+    l1 = l * 100000
+    zp = l/(l-z)
+    xp = x/xm
+    R = (rho*Cp*v1*l1)/(2*kappa)
+    Tprime = 1-(2/np.pi)*np.exp(-1*((np.pi**2)*xp)/(2*R))*np.sin(np.pi*zp)
+    return Tprime
