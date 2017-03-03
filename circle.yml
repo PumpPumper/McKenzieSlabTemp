@@ -13,3 +13,4 @@ test:
   override:
     - python main.py
     - cp Slabfig.png $CIRCLE_ARTIFACTS
+    - cp SlabfigGeometry.png $CIRCLE_ARTIFACTS

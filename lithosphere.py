@@ -43,6 +43,7 @@ def slabmodel(xmax,l,rho,Cp,vx,kappa,dip):
     plt.contourf(output)
     plt.ylim((int(xmax/4),1))
     plt.axes().set_aspect('equal')
+    plt.savefig('SlabfigGeometry.png')
     #zl2int = slope*(-200-l*np.sin(diprads))+l*(1+np.cos(diprads))
     for x1 in range(xmax):
         for z1 in range(int(xmax/4)):
@@ -71,3 +72,4 @@ def slabmodel(xmax,l,rho,Cp,vx,kappa,dip):
     plt.title('Slab Thermal Structure')
     plt.ylabel('Depth (km)')
     plt.xlabel('Distance(km)')
+    plt.savefig('Slabfig.png')
