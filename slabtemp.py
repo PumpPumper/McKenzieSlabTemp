@@ -9,6 +9,7 @@ This module exists to contain functions needed to calculate slab temperature.
 In the future I may add functions to calculate other slab attributes.
 """
 import numpy as np
+import vectors as vec
 
 def slabtemp(x,xm,rho,Cp,vx,l,kappa,dip,ztest):
     v1 = vx / 31536000 #           convert cm/yr to cm/sec
@@ -27,3 +28,20 @@ def lithospheretemp(x,xm,rho,Cp,vx,l,kappa,z):
     R = (rho*Cp*v1*l1)/(2*kappa)
     Tprime = 1-(2/np.pi)*np.exp(-1*((np.pi**2)*xp)/(2*R))*np.sin(np.pi*zp)
     return Tprime
+
+def pnt2line(pnt,start,end):
+    line_vec = vec.vector(start,end)
+    pnt_vec = vec.vector(start,pnt)
+    line_len = vec.length(line_vec)
+    line_unitvec = vec.unit(line_vec)
+    pnt_vec_scaled = vec.scale(pnt_vec, 1.0/line_len)
+    t = vec.dot(line_unitvec,pnt_vec_scaled)    
+    if t < 0.0:
+        t = 0.0
+    elif t > 1.0:
+        t = 1.0
+    nearest = vec.scale(line_vec,t)
+    dist = vec.distance(nearest,pnt_vec)
+    nearest = vec.add(nearest,start)
+    return (dist,nearest)
+
